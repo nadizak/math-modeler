@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css" integrity="sha384-PDle/QlgIONtM1aqA2Qemk5gPOE7wFq8+Em+G/hmo5Iq0CCmYZLv3fVRDJ4MMwEA" crossorigin="anonymous">
+    
+    <!-- Bootstrap Slider CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.6.1/css/bootstrap-slider.min.css" crossorigin="anonymous">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    
+    <!-- Custom CSS -->
+    <style>
+      body {
+        overflow-x: hidden;
+        margin-bottom: 200px;
+      }
+      .template {display: none;}
+      .advanced-option {display:none;}
+      input[data-slider-value] {display:none;}
+      .sm-hr {border-style: solid; border-width: 1px; }
+      .md-hr {
+        border-style: solid;
+        border-width: 2px;
+        margin-top: 0px;
+      }
+      hr {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+      }
+      canvas.graph-canvas {
+        width: 100%;
+        border:1px solid #d3d3d3;
+        max-width: 600px;
+      }
+      div.graph-model-template:nth-child(odd) {
+        background: #e9ecef;
+      }
+      .overlay {
+        background: black;
+        position: absolute;
+        display: none;
+        top: 0;
+        right: 0;
+        bottom: -350px;
+        left: 0;
+        opacity: 0.5;
+      }
+      .modal { overflow-y: auto; }
+	  .slider { margin: 0px 10px; }
+    </style>
+
+    <title>Math Modeler</title>
+  </head>
+  <body>
+    
+    <div class="modal" tabindex="-1" role="dialog">
+      <div class="overlay"></div>
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Credits</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h6>ESU Intro to Math Modeling. Spring 2019</h6>
+			<br/>
+            <div class="row">
+              <div class="col-sm-6">
+                <h6>Student Researchers</h6>
+                Joshua Del Toro<br/>
+                Lynn Dephillipo<br/>
+                Sean Grantham<br/>
+                Scott Kiskaddon<br/>
+                Sean Murphy<br/>
+                Menachem Perlman<br/>
+                Jarret Person<br/>
+                Anthony Rosado<br/>
+                Colby Sangrey<br/>
+                Jessica Schuon<br/>
+                Scott Schwartz<br/>
+                Shannon Smith<br/>
+                Raquel Taylor<br/>
+                Markos Tetonis<br/>
+                Zakiya Titlayo<br/>
+                Emily Vail
+                <br/><br/>
+              </div>
+              <div class="col-sm-6">
+                <h6>Instructor</h6>
+                Olivia Carducci<br/><br/>
+                <h6>Web Site Design</h6>
+                Jacob Butts
+                <br/><br/>
+                
+                <h6>Technology Credits</h6>
+                <a href="https://github.com/twbs/bootstrap/blob/v4.0.0/LICENSE" target="_blank">
+                  Bootstrap
+                </a>
+                <br/>
+                <a href="https://jquery.org/license/" target="_blank">
+                  jQuery
+                </a>
+                <br/>
+                <a href="https://github.com/FezVrasta/popper.js/blob/master/LICENSE.md" target="_blank">
+                  Popper
+                </a>
+                <br/>
+                <a href="https://github.com/seiyria/bootstrap-slider/blob/master/LICENSE.md" target="_blank">
+                  Bootstrap Slider
+                </a>
+              </div>
+            </div>
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="container">
+      <div class="jumbotron">
+        <h1>Aquaponics Viability</h1>
+        <p>The United States Department of Agriculture defines aquaponics as: a combination of fish and plant production using aquaculture and hydroponics systems. A mathematical model has been developed to determine the economic viability of aquaponics systems. Considerations for this model were startup costs, operational cost, labor costs, and revenue. All of these costs were researched and models for each were developed to formulate a final model which predicts the overall profit of an aquaponics system in Pennsylvania. Changing variables within the model show which variables affect the models profitability both positively and negatively and which cause the most drastic changes. The overall model is verified using a previously developed model by Dr. Kanae Tokunaga from Oahu, Hawaii. </p>
+      </div>
+    </div>
+    
+    <div class="container advanced-option">
+      <div class="form-group">
+        <label for="sourceCode">Model Source:</label>
+        <textarea class="form-control" rows="10" id="sourceCode">
+        </textarea>
+        <br/>
+        <button class="btn-primary" id="reload-source">Reload Source</button>
+      </div>
+      <hr>
+    </div>
+    
+    <div id="graphs_container" class="container">
+      <ul class="nav nav-tabs nav-justified-center" role="tablist">
+        <li class="nav-item template">
+          <a class="nav-link" data-toggle="tab" href="#g_" id="g_-tab">.....</a>
+        </li>
+      </ul>
+      
+      <div class="tab-content">
+        <div id="g_" class="tab-pane fade template" role="tabpanel" aria-labelledby="g_-tab">
+          <div class="graph-desc">
+            dummy graph desc"
+          </div>
+          <h4>
+            <span class="graph-x-name">dummy dependant name</span>
+            <small class="graph-x-desc text-muted">& desc</small>
+          </h4>
+          <h4>
+            <span class="graph-y-name">dummy dependant name</span>
+            <small class="graph-y-desc text-muted">& desc</small>
+          </h4>
+          
+          <div class="graph-models">
+            <div class="graph-model-template">
+              <hr class="md-hr">
+              <h2>
+                <small class="model-title">dummy model title</small><br/>
+                <code class="model-display">& display</code>
+              </h2>
+              <div class="model-desc">dummy model desc text</div>
+              <hr class="sm-hr">
+              <div class="model-vardescs row align-items-start">
+                <div class="var-slider col">
+                  <h3>
+                    <span class="var-title">dummy var title</span>
+                    <small>
+                      <span class="current">2</span>
+                    </small><br/>
+                    <input class="hidden" type="text" data-slider-min="-5" data-slider-max="5" data-slider-step="1" data-slider-value="2"/>
+                              <br/>
+                    <small class="var-desc text-muted">& desc </small>
+                  </h3>
+                  <hr>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <hr class="md-hr">
+          <div class="row">
+            <div class="graph-area">
+              <canvas id="canvas_" width="600" height="400" class="graph-canvas">
+            </div>
+            <div class="col-sm-12 col-md-2 col-lg-4 graph-legend">
+              <h6>
+                <i class="fas fa-arrows-alt-h"></i> Horizontal: 
+                <span class="graph-x-name">dummy dependant name</span>
+                <small class="graph-x-desc text-muted">& desc</small>
+                <br/>
+                Domain:
+                <span class="graph-domain">dummy domain</span>
+                <br/>Scale: 
+                <span class="graph-x-scale">Dummy Scale</span>
+              </h6>
+              <hr>
+              <h6>
+                <i class="fas fa-arrows-alt-v"></i> Vertical: 
+                <span class="graph-y-name">dummy dependant name</span>
+                <small class="graph-y-desc text-muted">& desc</small>
+                <br/>
+                Range:
+                <span class="graph-range">dummy domain</span>
+                <br/>
+                Scale: 
+                <span class="graph-y-scale">Dummy Scale</span>
+              </h6>
+              <hr>
+              <h6 class="model_legend template">
+                <span>Dummy Name</span>
+                <hr class="md-hr">
+              </h6>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <br/><br/>
+    <div class="container">
+      <button class="btn btn-dark" id="showCredits">
+        Presented by the Students of ESU. Click to view credits.
+      </button>
+    </div>
+    
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/js/bootstrap.min.js" integrity="sha384-7aThvCh9TypR7fIc2HV4O/nFMVCBwyIUKL8XCtKE+8xgCgl/PQGuFsvShjr74PBp" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.6.1/bootstrap-slider.min.js" crossorigin="anonymous"></script>
+  
+    <!-- Get the model source code -->
+    <script type="text/javascript" src="source.js"></script>
+    <!-- And our modeler scripts -->
+    <script type="text/javascript" src="MathModeler.js"></script>
+  </body>
+</html>
