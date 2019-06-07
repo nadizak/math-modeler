@@ -9,4 +9,4 @@ The source.js will be read in and used to generate the controls, displays, and g
 
 If the source.js is invalid it just does an alert and you should check the JSON validity.
 
-(Link to page)[https://nadizak.github.io/math-modeler/]
+[Link to page](https://nadizak.github.io/math-modeler/)
